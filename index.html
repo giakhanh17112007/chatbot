@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Chatbot</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+#chatbox {
+  width: 300px;
+  height: 400px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+#messages {
+  height: 300px;
+  overflow-y: auto;
+}
+.user {
+  text-align: right;
+  color: blue;
+}
+.bot {
+  text-align: left;
+  color: green;
+}
+input {
+  width: 80%;
+}
+button {
+  width: 18%;
+}
+</style>
+</head>
+
+<body>
+<div id="chatbox">
+  <div id="messages"></div>
+  <input id="input" type="text" placeholder="Nhập tin nhắn..." />
+  <button onclick="send()">Gửi</button>
+</div>
+
+<script>
+function send() {
+  let input = document.getElementById("input");
+  let msg = input.value;
+  if (!msg) return;
+
+  addMessage("user", msg);
+  input.value = "";
+
+  let reply = "Xin lỗi, tôi chưa hiểu.";
+  if (msg.toLowerCase().includes("xin chào")) reply = "Chào bạn 👋";
+  if (msg.toLowerCase().includes("giờ")) reply = "Bây giờ là " + new Date().toLocaleTimeString();
+
+  setTimeout(() => addMessage("bot", reply), 500);
+}
+
+function addMessage(type, text) {
+  let div = document.createElement("div");
+  div.className = type;
+  div.innerText = text;
+  document.getElementById("messages").appendChild(div);
+}
+</script>
+</body>
+</html>
